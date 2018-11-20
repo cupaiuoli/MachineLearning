@@ -18,9 +18,23 @@ grad = zeros(size(theta));
 %               derivatives of the cost w.r.t. each parameter in theta
 
 
+z = X * theta
+h = sigmoid(z)
 
+opEquals0 = -y' * log(h)
+opEquals1 = (1 - y)' * (log(1 - h))
 
+partialCost = opEquals0 - opEquals1
+unregularizedCost = partialCost / m
 
+% --- Cost function value ---
+regularizationFactor = lambda * (sum(theta) / m);
+J = unregularizedCost + regularizationFactor;
+
+% --- Gradient ---
+factor = ones(size(theta));
+factor(1,1) = 0;
+grad = 1/m * X' * (h-y) + lambda / m*factor.*theta;
 
 % =============================================================
 

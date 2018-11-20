@@ -23,10 +23,10 @@ grad = zeros(size(theta));
 z = X * theta
 h = sigmoid(z)
 
-op0 = -y * pinv(h) 
-op1 = (1 - y) * pinv(log(1 - h))
+opEquals0 = -y' * log(h)
+opEquals1 = (1 - y)' * (log(1 - h))
 
-partialCost = op1 - op2
+partialCost = opEquals0 - opEquals1
 
 unregularizedCost = partialCost / m
 
@@ -35,7 +35,7 @@ unregularizedCost = partialCost / m
 J = unregularizedCost;
 
 % --- Gradient ---
-grad = ((h - y) * X) / m;
+grad = (X' * (h - y)) / m;
 % =============================================================
 
 end
