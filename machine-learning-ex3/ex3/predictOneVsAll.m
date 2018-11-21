@@ -30,11 +30,14 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
+% Obtain class watching the index of all_theta obtained with max function prediction over the different hypothesis. LC
+% max() function return a vector of maximuns for a matrix
 
+h = sigmoid(X * all_theta');
 
+[max, i_max] = max(h')
 
-
-
+p = i_max;
 
 % =========================================================================
 
