@@ -16,10 +16,11 @@ sim = 0;
 %
 %
 
+distances = (x1 - x2).^2;
+% remove distances_0?
+calc = sum(distances) / (2 * sigma^2);
 
-
-
-
+sim = exp(-calc);
 
 % =============================================================
     
