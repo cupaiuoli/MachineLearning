@@ -24,10 +24,28 @@ sigma = 0.3;
 %
 
 
+C_test = [0.01 0.03 0.1 0.3 1 3 10 30];
+sigma_test = [0.01 0.03 0.1 0.3 1 3 10 30];
+min_error = 9999999;
 
+for i = 1:8
+    for j = 1:8
+        model = svmTrain( X, y, C_test(i), @(x1, x2) gaussianKernel( x1, x2, sigma_test(j) ) );
 
+        prediction = svmPredict(model, Xval);
 
+        actual_error = mean(double(prediction ~= yval));
 
+        if (actual_error < min_error)
+            C_min = C_test(i);
+            sigma_min = sigma_test(j);
+            min_error = actual_error;
+        end;
+    end;
+end;
+
+sigma = sigma_min;
+C = C_min;
 
 % =========================================================================
 
