@@ -21,7 +21,10 @@ S = zeros(n);
 %
 
 
+covX = X' * X;
+sigma = covX / m;
 
+[U, S, V] = svd(sigma);
 
 
 
