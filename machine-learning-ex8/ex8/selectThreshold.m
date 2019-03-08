@@ -24,16 +24,31 @@ for epsilon = min(pval):stepsize:max(pval)
     %       of 0's and 1's of the outlier predictions
 
 
+    tp = 0; % True Positives
+    fp = 0; % False Positives
+    fn = 0; % False Negatives
 
+    [m, n] = size(pval);
 
+    for i = 1:m
+        anomalyDetected = pval(i) < epsilon;
+        if (yval(i) == true) % its a real anomaly
+            if (anomalyDetected)  
+                tp = tp + 1; % our algorithm correctly classify it as an anomaly
+            else 
+                fn = fn + 1; % our algorithm incorrectly classified it as not being anomalous
+            end
+        else 
+            if (anomalyDetected)  
+                fp = fp + 1; % our algorithm correctly classify it as an anomaly
+            end
+        end
+    end
 
+    prec = tp / (tp + fp);
+    rec = tp / (tp + fn);
 
-
-
-
-
-
-
+    F1 = ( 2 * prec * rec ) / (prec + rec);
 
     % =============================================================
 
