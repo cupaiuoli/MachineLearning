@@ -41,22 +41,24 @@ Theta_grad = zeros(size(Theta));
 %
 
 
-J =  sum(sum( (R .* ((X * Theta') - Y) ).^2)) / 2;
 
-[m, n] = size(X);
-for i = 1:m
-  idx = find(R(i, :) == 1);
-  theta_temp = Theta(idx, :);
-  y_temp = Y(i, idx);
+% Regularized Cost Function
+regularization_Cost_Theta = (lambda / 2) * (sum(sum(Theta .^ 2)));
+regularization_Cost_X = (lambda / 2) * (sum(sum(X .^ 2)));
 
-  X_grad(i, :) = ( X(i,:) * theta_temp' - y_temp) * theta_temp;
-  Theta_grad = ( X(i, :) * theta_temp' - y_temp)' * X(i, :);
-end
+J_unreg = sum(sum( (R .* ((X * Theta') - Y) ).^2)) / 2;
+J = J_unreg + regularization_Cost_Theta + regularization_Cost_X; 
+
+
+
+% Regularized Gradient
+regularization_gradient_X = lambda .* X;
+regularization_gradient_Theta = lambda .* Theta;
+
+X_grad = ((X * Theta') - Y) .* R * Theta + regularization_gradient_X;
+Theta_grad = (((X * Theta') - Y) .* R)' * X + regularization_gradient_Theta;
 
 % =============================================================
-
-X_grad = ((X * Theta') - Y) .* R * Theta;
-Theta_grad = (((X * Theta') - Y) .* R)' * X;
 
 grad = [X_grad(:); Theta_grad(:)];
 
