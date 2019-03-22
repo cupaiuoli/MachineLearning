@@ -91,14 +91,14 @@ with tf.variable_scope('train'):
 with tf.Session() as session:
 
     # Run the global variable initializer to initialize all variables and layers of the neural network
-
+    session.run(tf.global_variables_initializer())
 
     # Run the optimizer over and over to train the network.
     # One epoch is one full run through the training data set.
     for epoch in range(training_epochs):
 
         # Feed in the training data and do one step of neural network training
-
+        session.run(optimizer, feed_dict={X: X_scaled_training, Y: Y_scaled_training})
 
         # Print the current training status to the screen
         print("Training pass: {}".format(epoch))
