@@ -34,7 +34,7 @@ X_scaled_testing = X_scaler.transform(X_testing)
 Y_scaled_testing = Y_scaler.transform(Y_testing)
 
 # Define model parameters
-RUN_NAME =
+RUN_NAME = "Run 2 with 50 nodes"
 learning_rate = 0.001
 training_epochs = 100
 
@@ -101,8 +101,8 @@ with tf.Session() as session:
 
     # Create log file writers to record training progress.
     # We'll store training and testing log data separately.
-    training_writer = tf.summary.FileWriter("./logs/training", session.graph)
-    testing_writer = tf.summary.FileWriter("./logs/testing", session.graph)
+    training_writer = tf.summary.FileWriter("./logs/{}/training".format(RUN_NAME), session.graph)
+    testing_writer = tf.summary.FileWriter("./logs/{}/testing".format(RUN_NAME), session.graph)
 
     # Run the optimizer over and over to train the network.
     # One epoch is one full run through the training data set.

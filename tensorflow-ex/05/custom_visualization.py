@@ -91,7 +91,7 @@ with tf.variable_scope('train'):
 # Create a summary operation to log the progress of the network
 with tf.variable_scope('logging'):
     tf.summary.scalar('current_cost', cost)
-
+    tf.summary.histogram('predicted_value', prediction)
     summary = tf.summary.merge_all()
 
 # Initialize a session so that we can run TensorFlow operations

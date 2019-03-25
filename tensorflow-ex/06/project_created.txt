@@ -1,0 +1,2 @@
+tensorflow-class-235602
+gs://tensorflow-class-lc1000
